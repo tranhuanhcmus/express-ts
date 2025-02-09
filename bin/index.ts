@@ -1,44 +1,39 @@
 import { startServer } from "./http_setup";
 import app from "../app";
 import http, { Server } from "http";
-import dotenv from 'dotenv';
-import connectMysql from "./mysql_connection";
-import { connectMongoDB } from "./mongodb_connection";
+import dotenv from "dotenv";
+import DatabaseClient from "../prisma";
 
 dotenv.config();
 
 export interface ServerConfig {
-  port: number;
-  mysql_url: string,
-  mongodb_url: string,
+    port: number;
 }
 
 const CONFIG: ServerConfig = {
-  port: normalizePort(process.env.PORT),
-  mysql_url:  process.env.MYSQL_URL || "mysql_url",
-  mongodb_url:  process.env.MONGODB_URL || "mongodb_url",
+    port: normalizePort(process.env.PORT),
 };
 
 app.set("port", CONFIG.port);
 
 const server: Server = http.createServer(app);
 
-startApp()
+startApp();
 
-async function startApp(){
-  await connectMysql(CONFIG)
-  await connectMongoDB(CONFIG)
-  startServer(server, CONFIG);
+async function startApp() {
+    // Initialize database connections
+    DatabaseClient.init();
+    startServer(server, CONFIG);
 }
 
 function normalizePort(val?: string): number {
-  const DEFAULT_PORT = 3000;
+    const DEFAULT_PORT = 3000;
 
-  if (val === undefined) {
-    return DEFAULT_PORT;
-  }
+    if (val === undefined) {
+        return DEFAULT_PORT;
+    }
 
-  const port = parseInt(val, 10);
+    const port = parseInt(val, 10);
 
-  return !isNaN(port) && port >= 0 ? port : DEFAULT_PORT;
+    return !isNaN(port) && port >= 0 ? port : DEFAULT_PORT;
 }

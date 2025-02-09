@@ -1,0 +1,62 @@
+# Express TypeScript Project
+
+## Prerequisites
+- **Node.js v22** (Required)
+- **npm** or **yarn** installed
+
+## Installation
+```sh
+npm install
+```
+
+## Scripts
+The following npm scripts are available for managing and running the project:
+
+### Start the Server
+```sh
+npm start
+```
+This runs the Express server using `ts-node`.
+
+### Database Management
+#### Push Schema to MySQL
+```sh
+npm run db:mysql
+```
+This pushes the MySQL Prisma schema to the database.
+
+#### Push Schema to MongoDB
+```sh
+npm run db:mongodb
+```
+This pushes the MongoDB Prisma schema to the database.
+
+### Prisma Client Generation
+```sh
+npm run prisma
+```
+This generates Prisma clients for both MySQL and MongoDB schemas and watches for changes.
+
+**Note:** The `/prisma/generated` directory is not included in version control. If you clone the repository, you must run `npm run prisma` to regenerate the Prisma clients before running the project.
+
+## Environment Variables
+Create a `.env` file in the root directory and add necessary database configurations:
+```env
+DATABASE_URL_MYSQL="mysql://user:password@localhost:3306/db_name"
+DATABASE_URL_MONGODB="mongodb+srv://user:password@cluster.mongodb.net/db_name"
+```
+
+## Running the Project
+1. Install dependencies: `npm install`
+2. Start the database services (MySQL and/or MongoDB)
+3. Push the database schema: `npm run db:mysql` or `npm run db:mongodb`
+4. Generate Prisma clients: `npm run prisma`
+5. Start the server: `npm start` or `npm run dev` for development
+
+## Notes
+- Ensure **Node.js v22** is installed before running the project.
+- Use `prisma generate` if you modify the schema before running the server.
+
+## License
+MIT
+

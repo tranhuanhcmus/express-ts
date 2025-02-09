@@ -1,28 +1,44 @@
 {
-  "name": "exprress-ts",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "npx ts-node  ./bin/index.ts"
-  },
-  "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "dotenv": "^16.4.7",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "mongodb": "^6.13.0",
-    "morgan": "~1.9.1",
-    "mysql2": "^3.12.0"
-  },
-  "devDependencies": {
-    "@types/cookie-parser": "^1.4.8",
-    "@types/debug": "^4.1.12",
-    "@types/express": "^5.0.0",
-    "@types/morgan": "^1.9.9",
-    "@types/node": "^22.13.1",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.3"
-  }
+    "name": "exprress-ts",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "npx ts-node  ./bin/index.ts",
+        "dev": "nodemon --exec npx ts-node ./bin/index.ts",
+        "db:mysql": "prisma db push --schema=./prisma/schema-mysql.prisma",
+        "db:mongodb": "prisma db push --schema=./prisma/schema-mongodb.prisma",
+        "db:reset:mysql": "prisma migrate reset --schema=./prisma/schema-mysql.prisma --force",
+        "db:reset:mongodb": "prisma migrate reset --schema=./prisma/schema-mongodb.prisma --force",
+        "db:migrate:mysql": "prisma migrate dev --schema=./prisma/schema-mysql.prisma",
+        "db:migrate:mongodb": "prisma migrate dev --schema=./prisma/schema-mongodb.prisma",
+        "db:seed:mysql": "prisma db seed --schema=./prisma/schema-mysql.prisma",
+        "db:seed:mongodb": "prisma db seed --schema=./prisma/schema-mongodb.prisma",
+        "prisma": "prisma generate --watch --schema=./prisma/schema-mysql.prisma & prisma generate --watch --schema=./prisma/schema-mongodb.prisma",
+        "format": "npx prettier --write .",
+        "test": "jest --config jest.config.js",
+        "build": "tsc --build"
+    },
+    "dependencies": {
+        "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "dotenv": "^16.4.7",
+        "express": "~4.16.1",
+        "http-errors": "~1.6.3",
+        "jade": "~1.11.0",
+        "mongodb": "^6.13.0",
+        "morgan": "~1.9.1",
+        "mysql2": "^3.12.0",
+        "nodemon": "^3.1.9"
+    },
+    "devDependencies": {
+        "@types/cookie-parser": "^1.4.8",
+        "@types/debug": "^4.1.12",
+        "@types/express": "^5.0.0",
+        "@types/morgan": "^1.9.9",
+        "@types/node": "^22.13.1",
+        "prettier": "^3.5.0",
+        "prisma": "^6.3.1",
+        "tsx": "^4.19.2",
+        "typescript": "^5.7.3"
+    }
 }

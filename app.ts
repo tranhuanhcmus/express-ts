@@ -3,9 +3,9 @@ import express, { Express } from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import routing from './routes'
+import routing from "./routes";
 
-const app : Express = express();
+const app: Express = express();
 
 // View engine setup
 app.set("views", path.join(process.cwd(), "views")); // Use process.cwd() for compatibility
