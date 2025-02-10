@@ -1,5 +1,5 @@
 version: "3.8"
-name: 2025-exacoola
+name: exacoola-express-2025
 services:
     app:
         build:

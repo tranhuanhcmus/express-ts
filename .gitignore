@@ -65,3 +65,5 @@ typings/
 
 # prisma generated client
 /prisma/generated
+
+package-lock.json
