@@ -3,7 +3,6 @@ import { RedisStore } from "connect-redis";
 import session from "express-session";
 import { Express } from "express";
 
-
 class RedisClientWrapper {
     public redisClient: RedisClientType;
     public redisStore: RedisStore;
@@ -40,7 +39,7 @@ class RedisClientSingleton {
 
     static async getInstance(): Promise<RedisClientWrapper> {
         if (!RedisClientSingleton.instance) {
-            console.log("🔄 Creating Redis client...",process.env.REDIS_URL);
+            console.log("🔄 Creating Redis client...", process.env.REDIS_URL);
             const client: RedisClientType = createClient({
                 url: `${process.env.REDIS_URL}`,
             });
@@ -67,12 +66,14 @@ const initRedis = async (app: Express) => {
         console.log("🔄 Initializing Redis...");
         const redis = await RedisClientSingleton.getInstance();
 
-        app.use(session({
-            store: redis.redisStore, // Redis session store
-            secret: process.env.SESSION_SECRET || "INNORIX", // Use an environment variable for security
-            resave: false,
-            saveUninitialized: false,
-        }));
+        app.use(
+            session({
+                store: redis.redisStore, // Redis session store
+                secret: process.env.SESSION_SECRET || "INNORIX", // Use an environment variable for security
+                resave: false,
+                saveUninitialized: false,
+            })
+        );
 
         console.log("✅ Redis initialized and session middleware configured.");
     } catch (err) {
