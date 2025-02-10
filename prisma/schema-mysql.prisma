@@ -8,9 +8,92 @@ datasource db {
   url      = env("MYSQL_URL")
 }
 
-model User {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model irx_device {
+  deviceId         String   @id @default(uuid())
+  userId           String
+  osType           String
+  macAddress       String
+  publicIp         String
+  privateIp        String
+  groupId          String
+  state            String
+  version          String
+  isObject         Boolean
+  isHyperlink      Boolean
+  deviceName       String
+  registerToken    String
+  agentPort        String
+  agentKey         String
+  serverPublicKey  String
+  serverPrivateKey String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model irx_group {
+  groupId    String   @id @default(uuid())
+  userId     String
+  groupName  String
+  groupColor Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model irx_objectStorage {
+  objectStorageId String   @id @default(uuid())
+  accessURL       String
+  accessKey       String
+  secretKey       String
+  region          String
+  bucket          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model irx_user {
+  userId       String   @id @default(uuid())
+  email        String
+  userName     String
+  profileColor Int
+  lang         String
+  timezone     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model irx_transfer {
+  transferId   String   @id @default(uuid())
+  scheduleId   String
+  transferType Int //- 0 : srouce -> hyperlink / target | 1 : hyperlink -> target
+  sourceId     String
+  sourceItem   String
+  targetId     String
+  targetPath   String
+  fileCount    Int
+  folderCount  Int
+  totalSize    Int
+  transferSize Int
+  startDate    DateTime
+  endDate      DateTime
+  status       Int
+  lastUpdate   DateTime
+}
+
+model irx_transferFileList {
+  transferId String @id @default(uuid())
+  fileName   String
+  fileSize   Int
+  result     String //error, errorcode / updated, size 
+  status     Int
+}
+
+model irx_command {
+  commandId String @id @default(uuid())
+  deviceId  String
+  channelId Int //- to multi channel socket
+  action    String //- explorerSearch, transferList, upload, download, getFreeSpace, newFolder, {explorere}, checkConnection, checkSource, checkTarget, 
+  param     Json
+  received  Int
+  resend    Int
+  status    Int //- created, receieved, sent, finished
 }
