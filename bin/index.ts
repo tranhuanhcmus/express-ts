@@ -3,6 +3,8 @@ import app from "../app";
 import http, { Server } from "http";
 import dotenv from "dotenv";
 import DatabaseClient from "../prisma";
+import { initRedis } from "../redis";
+import { SocketService } from "../socket";
 
 dotenv.config();
 
@@ -23,6 +25,8 @@ startApp();
 async function startApp() {
     // Initialize database connections
     DatabaseClient.init();
+    await initRedis(app); // ✅ Initialize Redis first
+    await SocketService.init(server);
     startServer(server, CONFIG);
 }
 

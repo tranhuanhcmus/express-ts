@@ -1,0 +1,57 @@
+version: '3.8'
+name: 2025-exacoola
+services:
+  app:
+    build:
+      context: .  # Use the current directory for the Dockerfile
+      dockerfile: Dockerfile  # Ensure this matches your actual Dockerfile name
+    ports:
+      - "${PORT}:${PORT}"
+    depends_on:
+      - redis
+      - mysql
+      - mongodb
+    env_file:
+      - .env
+    networks:
+      - app_network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - app_network
+
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_DATABASE: "2025exacoola"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+
+  mongodb:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: "2025exacoola"
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app_network
+
+volumes:
+  mysql_data:
+  mongo_data:
+
+networks:
+  app_network:
+    driver: bridge
