@@ -13,7 +13,7 @@
         "db:migrate:mongodb": "prisma migrate dev --schema=./prisma/schema-mongodb.prisma",
         "db:seed:mysql": "prisma db seed --schema=./prisma/schema-mysql.prisma",
         "db:seed:mongodb": "prisma db seed --schema=./prisma/schema-mongodb.prisma",
-        "prisma": "npx prisma generate --watch --schema=./prisma/schema-mysql.prisma & npx prisma generate --watch --schema=./prisma/schema-mongodb.prisma",
+        "prisma": "npx prisma generate --schema=./prisma/schema-mysql.prisma & npx prisma generate  --schema=./prisma/schema-mongodb.prisma",
         "format": "npx prettier --write .",
         "test": "jest --config jest.config.js",
         "build": "tsc --build"

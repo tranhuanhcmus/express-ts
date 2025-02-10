@@ -10,13 +10,13 @@ COPY package*.json ./
 # Install production dependencies
 RUN npm ci 
 
+COPY . .
+
 RUN npm run prisma
 
 RUN npm run db:mysql
 
 RUN npm run db:mongodb
-
-COPY . .
 
 EXPOSE 3000
 

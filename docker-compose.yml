@@ -4,7 +4,7 @@ services:
     app:
         build:
             context: . # Use the current directory for the Dockerfile
-            dockerfile: Dockerfile # Ensure this matches your actual Dockerfile name
+            dockerfile: Dockerfile
         ports:
             - "${PORT}:${PORT}"
         depends_on:
@@ -26,9 +26,6 @@ services:
     mysql:
         image: mysql:8.0
         restart: always
-        environment:
-            MYSQL_ROOT_PASSWORD: "1234"
-            MYSQL_DATABASE: "2025exacoola"
         ports:
             - "3306:3306"
         volumes:
@@ -39,8 +36,6 @@ services:
     mongodb:
         image: mongo:latest
         restart: always
-        environment:
-            MONGO_INITDB_DATABASE: "2025exacoola"
         ports:
             - "27017:27017"
         volumes:
