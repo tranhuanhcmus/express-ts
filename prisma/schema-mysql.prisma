@@ -8,9 +8,55 @@ datasource db {
   url      = env("MYSQL_URL")
 }
 
-model User {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model irx_device {
+  deviceId         String   @id @default(uuid())
+  userId           String
+  osType           String
+  macAddress       String
+  publicIp         String
+  privateIp        String
+  groupId          String
+  state            String
+  version          String
+  isObject         Boolean
+  isHyperlink      Boolean
+  deviceName       String
+  registerToken    String
+  agentPort        String
+  agentKey         String
+  serverPublicKey  String
+  serverPrivateKey String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model irx_group {
+  groupId    String   @id @default(uuid())
+  userId     String
+  groupName  String
+  groupColor Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model irx_objectStorage {
+  objectStrorageId String   @id @default(uuid())
+  accessURL        String
+  accessKey        String
+  secretKey        String
+  region           String
+  bucket           String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model irx_user {
+  userId       String   @id @default(uuid())
+  email        String
+  userName     String
+  profileColor Int
+  lang         String
+  timezone     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
